@@ -48,8 +48,8 @@ public class ProduitController {
 
     @PutMapping("/modifier/{idProd}")
     public ResponseEntity<Produit> modifierProduit (@PathVariable("idProd") Long idProd, @Valid @RequestBody Produit produit){
-         Produit newProduit = new Produit(idProd, produit.getNom(), produit.getQt(), produit.isDisponible(), produit.getCategorie());
-         Produit updatedProduit = this.prodService.modifierProduit(newProduit);
+        Produit newProduit = new Produit(idProd, produit.getNom(), produit.getQt(), produit.isDisponible(), produit.getCategorie());
+        Produit updatedProduit = this.prodService.modifierProduit(newProduit);
         return  new ResponseEntity<Produit>(updatedProduit, HttpStatus.OK);
     }
 

@@ -2,6 +2,7 @@ package com.example.exOGA.Services;
 
 import com.example.exOGA.Entities.Categorie;
 import com.example.exOGA.Entities.Produit;
+import com.example.exOGA.Repositories.CategorieRepository;
 import com.example.exOGA.Repositories.ProduitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,9 @@ import java.util.List;
 
 @Service
 public class ProduitService {
+
+    @Autowired
+    private CategorieRepository catRepo;
 
     @Autowired
     private ProduitRepository prodRepo;
@@ -24,6 +28,8 @@ public class ProduitService {
     }
 
     public Produit ajoutProduit(Produit prod){
+        Categorie categorie = catRepo.getReferenceById(prod.getCategorie().getIdCategorie());
+        prod.setCategorie(categorie);
         return this.prodRepo.save(prod);
     }
 

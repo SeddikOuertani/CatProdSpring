@@ -11,12 +11,11 @@ import java.util.List;
 @Entity
 public class Categorie {
 
-    private final String DATE_FORMAT = "dd/MM/yyyy HH:mm:ss";
+    private final String DATE_FORMAT = "yyyy-MM-dd";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idCategorie;
-
 
     @NotNull
     @NotEmpty

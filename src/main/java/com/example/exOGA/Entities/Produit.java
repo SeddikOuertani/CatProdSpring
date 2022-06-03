@@ -10,7 +10,7 @@ import java.util.Date;
 @Entity
 public class Produit {
 
-    private final String DATE_FORMAT = "dd/MM/yyyy HH:mm:ss";
+    private final String DATE_FORMAT = "yyyy-MM-dd";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,7 +21,6 @@ public class Produit {
     private String nom;
 
     @NotNull
-    @NotEmpty
     private long qt;
 
     @NotNull
