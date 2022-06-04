@@ -1,5 +1,7 @@
 package com.example.exOGA.Entities;
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -7,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Table(name="produits")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "categorie")
 @Entity
 public class Produit {
 

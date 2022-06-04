@@ -23,7 +23,7 @@ public class ProduitService {
         return this.prodRepo.findAll();
     }
 
-    public Produit findCateogorieById(Long idProd){
+    public Produit findProduitById(Long idProd){
         return this.prodRepo.findById(idProd).get();
     }
 
@@ -43,5 +43,9 @@ public class ProduitService {
 
     public void supprimerProduit(Long idProd){
         this.prodRepo.deleteById(idProd);
+    }
+
+    public List<Produit> findProduitsByCategorieId(Long idCat){
+        return this.prodRepo.findProduitByCategorieId(idCat);
     }
 }

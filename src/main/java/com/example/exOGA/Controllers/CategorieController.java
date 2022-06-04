@@ -21,15 +21,16 @@ public class CategorieController {
 
     @RequestMapping(value = "/ajouter", method = RequestMethod.POST)
     public ResponseEntity<Categorie> ajouterCategorie (@Valid @RequestBody Categorie cat){
-        Categorie categorie = new Categorie(cat.getNom());
+        Categorie categorie = new Categorie(cat.getNom(), cat.getQt());
         Categorie savedCategorie = this.catService.ajoutCategorie(categorie);
         return new ResponseEntity<Categorie>(savedCategorie, HttpStatus.CREATED);
     }
 
-    @GetMapping("/find/{idCat}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/{idCat}")
     public ResponseEntity<Categorie> findCategorieById (@PathVariable("idCat") Long idCat){
         Categorie cat = this.catService.findCateogorieById(idCat);
-        return new ResponseEntity<Categorie>(cat, HttpStatus.FOUND);
+        return new ResponseEntity<Categorie>(cat, HttpStatus.OK);
     }
 
     @GetMapping("")
@@ -39,7 +40,7 @@ public class CategorieController {
     }
 
     @DeleteMapping("/supprimer/{idCat}")
-    public ResponseEntity<Categorie> deleteAllCategories (@PathVariable("idCat") Long idCat){
+    public ResponseEntity<Categorie> deleteCategorieById (@PathVariable("idCat") Long idCat){
         Categorie deletedCat = this.catService.findCateogorieById(idCat);
         this.catService.supprimerCategorie(idCat);
         return new ResponseEntity<Categorie>(deletedCat, HttpStatus.OK);

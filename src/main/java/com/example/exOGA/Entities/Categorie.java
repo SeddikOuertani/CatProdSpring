@@ -1,5 +1,9 @@
 package com.example.exOGA.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -27,7 +31,9 @@ public class Categorie {
 
     private String dateModif;
 
-    @OneToMany(mappedBy = "categorie")
+    @JsonManagedReference
+    @JsonIgnore
+    @OneToMany(mappedBy = "categorie", cascade = CascadeType.ALL, orphanRemoval=true)
     private List<Produit> produits;
 
     public Categorie(){
@@ -41,6 +47,15 @@ public class Categorie {
 
     public Categorie(String nom) {
         this.nom = nom;
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        this.dateCreation = dateFormat.format(date);
+        this.dateModif= dateFormat.format(date);
+    }
+    
+    public Categorie(String nom, long qt) {
+        this.nom = nom;
+        this.qt = qt;
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
         this.dateCreation = dateFormat.format(date);
@@ -79,4 +94,5 @@ public class Categorie {
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
         this.dateModif = dateFormat.format(dateModif);
     }
+
 }
