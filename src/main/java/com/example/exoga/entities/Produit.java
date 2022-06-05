@@ -1,6 +1,8 @@
-package com.example.exOGA.Entities;
+package com.example.exoga.entities;
 
 import com.fasterxml.jackson.annotation.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -13,26 +15,38 @@ import java.util.Date;
 @Entity
 public class Produit {
 
-    private final String DATE_FORMAT = "yyyy-MM-dd";
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
 
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idProduit;
 
+    @Getter
+    @Setter
     @NotNull
     @NotEmpty
     private String nom;
 
+    @Getter
+    @Setter
     @NotNull
     private long qt;
 
+    @Getter
+    @Setter
     @NotNull
     private boolean disponible;
 
+    @Getter
     private String dateCreation;
 
+    @Getter
     private String dateModif;
 
+    @Getter
+    @Setter
     @NotNull
     @ManyToOne
     private Categorie categorie;
@@ -56,46 +70,8 @@ public class Produit {
         this.qt = qt;
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-        System.out.println(dateFormat.format(date));
         this.dateCreation = dateFormat.format(date);
         this.dateModif= dateFormat.format(date);
-    }
-
-
-    public Long getIdProduit() {
-        return idProduit;
-    }
-
-    public String getDateCreation() {
-        return dateCreation;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public long getQt() {
-        return qt;
-    }
-
-    public void setQt(long qt) {
-        this.qt = qt;
-    }
-
-    public boolean isDisponible() {
-        return disponible;
-    }
-
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
-    }
-
-    public String getDateModif() {
-        return dateModif;
     }
 
     public void setDateModif(Date dateModif) {
@@ -103,11 +79,4 @@ public class Produit {
         this.dateModif = dateFormat.format(dateModif);
     }
 
-    public Categorie getCategorie() {
-        return categorie;
-    }
-
-    public void setCategorie(Categorie categorie) {
-        this.categorie = categorie;
-    }
 }

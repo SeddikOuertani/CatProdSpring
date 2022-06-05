@@ -1,7 +1,8 @@
-package com.example.exOGA.Controllers;
+package com.example.exoga.controllers;
 
-import com.example.exOGA.Entities.Categorie;
-import com.example.exOGA.Services.CategorieService;
+import com.example.exoga.entities.Categorie;
+import com.example.exoga.requestPojos.CategorieRequestPojo;
+import com.example.exoga.services.CategorieService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -19,38 +20,39 @@ public class CategorieController {
     @Autowired
     private CategorieService catService;
 
-    @RequestMapping(value = "/ajouter", method = RequestMethod.POST)
-    public ResponseEntity<Categorie> ajouterCategorie (@Valid @RequestBody Categorie cat){
-        Categorie categorie = new Categorie(cat.getNom(), cat.getQt());
+    @PostMapping("/ajouter")
+    public ResponseEntity<Categorie> ajouterCategorie (@Valid @RequestBody CategorieRequestPojo catPojo){
+        Categorie categorie = new Categorie(catPojo);
         Categorie savedCategorie = this.catService.ajoutCategorie(categorie);
-        return new ResponseEntity<Categorie>(savedCategorie, HttpStatus.CREATED);
+        return new ResponseEntity<>(savedCategorie, HttpStatus.CREATED);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{idCat}")
     public ResponseEntity<Categorie> findCategorieById (@PathVariable("idCat") Long idCat){
         Categorie cat = this.catService.findCateogorieById(idCat);
-        return new ResponseEntity<Categorie>(cat, HttpStatus.OK);
+        return new ResponseEntity<>(cat, HttpStatus.OK);
     }
 
     @GetMapping("")
     public ResponseEntity<List<Categorie>> findAllCategories (){
         List<Categorie> categories = this.catService.findAllCategories();
-        return new ResponseEntity<List<Categorie>>(categories, HttpStatus.OK);
+        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
     @DeleteMapping("/supprimer/{idCat}")
     public ResponseEntity<Categorie> deleteCategorieById (@PathVariable("idCat") Long idCat){
         Categorie deletedCat = this.catService.findCateogorieById(idCat);
         this.catService.supprimerCategorie(idCat);
-        return new ResponseEntity<Categorie>(deletedCat, HttpStatus.OK);
+        return new ResponseEntity<>(deletedCat, HttpStatus.OK);
     }
 
     @PutMapping("/modifier/{idCat}")
-    public ResponseEntity<Categorie> deleteAllCategories (@PathVariable("idCat") Long idCat, @Valid @RequestBody Categorie categorie){
-        Categorie newCategorie = new Categorie(idCat, categorie.getNom());
+    public ResponseEntity<Categorie> deleteAllCategories (@PathVariable("idCat") Long idCat, @Valid @RequestBody CategorieRequestPojo catPojo){
+        Categorie newCategorie = new Categorie(catPojo);
+        newCategorie.setIdCategorie(idCat);
         Categorie updatedCategorie = this.catService.modifierCategorie(newCategorie);
-        return  new ResponseEntity<Categorie>(updatedCategorie, HttpStatus.OK);
+        return  new ResponseEntity<>(updatedCategorie, HttpStatus.OK);
     }
 
 }

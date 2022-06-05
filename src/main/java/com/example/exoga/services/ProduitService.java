@@ -1,14 +1,15 @@
-package com.example.exOGA.Services;
+package com.example.exoga.services;
 
-import com.example.exOGA.Entities.Categorie;
-import com.example.exOGA.Entities.Produit;
-import com.example.exOGA.Repositories.CategorieRepository;
-import com.example.exOGA.Repositories.ProduitRepository;
+import com.example.exoga.entities.Categorie;
+import com.example.exoga.entities.Produit;
+import com.example.exoga.repositories.CategorieRepository;
+import com.example.exoga.repositories.ProduitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProduitService {
@@ -24,7 +25,12 @@ public class ProduitService {
     }
 
     public Produit findProduitById(Long idProd){
-        return this.prodRepo.findById(idProd).get();
+        Produit prod = null;
+        Optional<Produit> prodOpt = this.prodRepo.findById(idProd);
+        if(prodOpt.isPresent()){
+            prod = prodOpt.get();
+        }
+        return prod;
     }
 
     public Produit ajoutProduit(Produit prod){
@@ -34,11 +40,19 @@ public class ProduitService {
     }
 
     public Produit modifierProduit(Produit prod){
-        Produit updatedProduit = this.prodRepo.findById(prod.getIdProduit()).get();
-        updatedProduit.setNom(prod.getNom());
-        updatedProduit.setQt(prod.getQt());
-        updatedProduit.setDateModif(new Date());
-        return this.prodRepo.save(updatedProduit);
+
+        Produit updatedProduit = null;
+        Optional<Produit> prodOpt = this.prodRepo.findById(prod.getIdProduit());
+
+        if(prodOpt.isPresent()){
+            updatedProduit = this.prodRepo.findById(prod.getIdProduit()).get();
+            updatedProduit.setNom(prod.getNom());
+            updatedProduit.setQt(prod.getQt());
+            updatedProduit.setDateModif(new Date());
+            return this.prodRepo.save(updatedProduit);
+        }
+
+        return updatedProduit;
     }
 
     public void supprimerProduit(Long idProd){

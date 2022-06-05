@@ -1,6 +1,6 @@
-package com.example.exOGA.Repositories;
+package com.example.exoga.repositories;
 
-import com.example.exOGA.Entities.Produit;
+import com.example.exoga.entities.Produit;
 
 import java.util.List;
 

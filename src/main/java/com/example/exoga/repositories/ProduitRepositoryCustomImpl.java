@@ -1,6 +1,6 @@
-package com.example.exOGA.Repositories;
+package com.example.exoga.repositories;
 
-import com.example.exOGA.Entities.Produit;
+import com.example.exoga.entities.Produit;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,11 +16,11 @@ public class ProduitRepositoryCustomImpl implements ProduitRepositoryCustom {
     @PersistenceContext
     EntityManager entityManager;
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<Produit> findProduitByCategorieId(Long idCat) {
         Query query = entityManager.createNativeQuery("SELECT * FROM produits WHERE categorie_id_categorie= ?1", Produit.class);
         query.setParameter(1, idCat);
-        List<Produit> produits = (List<Produit>) query.getResultList();
-        return produits;
+        return query.getResultList();
     }
 }
