@@ -1,10 +1,10 @@
-package com.example.exoga.requestPojos;
+package com.example.exOGA.request_pojos;
 
-import com.example.exoga.entities.Categorie;
 import lombok.Data;
 
 @Data
 public class CategorieRequestPojo {
+    private String idCategorie;
     private String nom;
     private String qt;
 

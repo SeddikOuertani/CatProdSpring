@@ -1,8 +1,8 @@
-package com.example.exoga.controllers;
+package com.example.exOGA.controllers;
 
-import com.example.exoga.entities.Categorie;
-import com.example.exoga.requestPojos.CategorieRequestPojo;
-import com.example.exoga.services.CategorieService;
+import com.example.exOGA.entities.Categorie;
+import com.example.exOGA.request_pojos.CategorieRequestPojo;
+import com.example.exOGA.services.CategorieService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;

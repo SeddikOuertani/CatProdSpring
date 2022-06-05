@@ -1,6 +1,6 @@
-package com.example.exoga.entities;
+package com.example.exOGA.entities;
 
-import com.example.exoga.requestPojos.CategorieRequestPojo;
+import com.example.exOGA.request_pojos.CategorieRequestPojo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;

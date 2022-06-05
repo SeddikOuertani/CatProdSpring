@@ -1,7 +1,7 @@
-package com.example.exoga.services;
+package com.example.exOGA.services;
 
-import com.example.exoga.entities.Categorie;
-import com.example.exoga.repositories.CategorieRepository;
+import com.example.exOGA.entities.Categorie;
+import com.example.exOGA.repositories.CategorieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,9 +31,7 @@ public class CategorieService {
     }
 
     public Categorie ajoutCategorie(Categorie cat){
-        long qt = (this.catRepo.count() + 1);
-        cat.setQt(qt);
-        return this.catRepo.save(cat);
+       return this.catRepo.save(cat);
     }
 
     public Categorie modifierCategorie(Categorie cat){
@@ -44,6 +42,7 @@ public class CategorieService {
 
             updatedCategorie = catOpt.get();
             updatedCategorie.setNom(cat.getNom());
+            updatedCategorie.setQt(cat.getQt());
             updatedCategorie.setDateModif(new Date());
             return this.catRepo.save(updatedCategorie);
         }

@@ -1,6 +1,6 @@
-package com.example.exoga.repositories;
+package com.example.exOGA.repositories;
 
-import com.example.exoga.entities.Produit;
+import com.example.exOGA.entities.Produit;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

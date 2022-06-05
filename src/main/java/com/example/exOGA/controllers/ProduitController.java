@@ -1,9 +1,10 @@
-package com.example.exoga.controllers;
+package com.example.exOGA.controllers;
 
-import com.example.exoga.entities.Categorie;
-import com.example.exoga.entities.Produit;
-import com.example.exoga.services.CategorieService;
-import com.example.exoga.services.ProduitService;
+import com.example.exOGA.entities.Categorie;
+import com.example.exOGA.entities.Produit;
+import com.example.exOGA.request_pojos.PorduitRequestPojo;
+import com.example.exOGA.services.CategorieService;
+import com.example.exOGA.services.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -25,10 +26,14 @@ public class ProduitController {
     private CategorieService catService;
 
     @PostMapping("/ajouter")
-    public ResponseEntity<Produit> ajouterProduit (@Valid @RequestBody Produit prod){
-        Categorie cat = this.catService.findCateogorieById(prod.getCategorie().getIdCategorie());
-        Produit produit = new Produit(prod.getNom(),prod.isDisponible(),prod.getQt(), cat);
-        Produit savedProduit = this.prodService.ajoutProduit(produit);
+    public ResponseEntity<Produit> ajouterProduit (@Valid @RequestBody PorduitRequestPojo prodPojo){
+
+        Categorie cat = this.catService.findCateogorieById(Long.valueOf(prodPojo.getCategorie().getIdCategorie()));
+
+        Produit prod = new Produit(prodPojo);
+        prod.setCategorie(cat);
+
+        Produit savedProduit = this.prodService.ajoutProduit(prod);
         return new ResponseEntity<>(savedProduit, HttpStatus.OK);
     }
 
@@ -58,10 +63,16 @@ public class ProduitController {
     }
 
     @PutMapping("/modifier/{idProd}")
-    public ResponseEntity<Produit> modifierProduit (@PathVariable("idProd") Long idProd, @Valid @RequestBody Produit produit){
-        Produit newProduit = new Produit(idProd, produit.getNom(), produit.getQt(), produit.isDisponible(), produit.getCategorie());
-        Produit updatedProduit = this.prodService.modifierProduit(newProduit);
-        return  new ResponseEntity<>(updatedProduit, HttpStatus.OK);
+    public ResponseEntity<Produit> modifierProduit (@PathVariable("idProd") Long idProd, @Valid @RequestBody PorduitRequestPojo prodPojo){
+
+        Categorie cat = this.catService.findCateogorieById(Long.valueOf(prodPojo.getCategorie().getIdCategorie()));
+
+        Produit produit = new Produit(prodPojo);
+        produit.setCategorie(cat);
+        produit.setIdProduit(idProd);
+
+        Produit savedProduit = this.prodService.modifierProduit(produit);
+        return  new ResponseEntity<>(savedProduit, HttpStatus.OK);
     }
 
 }

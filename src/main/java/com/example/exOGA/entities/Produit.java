@@ -1,5 +1,6 @@
-package com.example.exoga.entities;
+package com.example.exOGA.entities;
 
+import com.example.exOGA.request_pojos.PorduitRequestPojo;
 import com.fasterxml.jackson.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -63,20 +64,32 @@ public class Produit {
         this.categorie = categorie;
     }
 
+    public Produit(PorduitRequestPojo prodPojo) {
+        this.nom = prodPojo.getNom();
+        this.qt = Long.valueOf(prodPojo.getQt());
+        this.disponible = Boolean.valueOf(prodPojo.getDisponible());
+        this.setDateCreation();
+        this.dateModif = this.dateCreation;
+    }
+
     public Produit(String nom, boolean disponible, long qt, Categorie categorie) {
         this.nom = nom;
         this.disponible = disponible;
         this.categorie = categorie;
         this.qt = qt;
-        Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-        this.dateCreation = dateFormat.format(date);
-        this.dateModif= dateFormat.format(date);
+        this.setDateCreation();
+        this.dateModif= this.dateCreation;
     }
 
     public void setDateModif(Date dateModif) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
         this.dateModif = dateFormat.format(dateModif);
+    }
+
+    public void setDateCreation(){
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        this.dateCreation = dateFormat.format(date);
     }
 
 }
