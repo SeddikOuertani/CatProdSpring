@@ -1,7 +1,7 @@
-package com.example.exOGA.services;
+package com.example.exoga.services;
 
-import com.example.exOGA.entities.Categorie;
-import com.example.exOGA.repositories.CategorieRepository;
+import com.example.exoga.entities.Categorie;
+import com.example.exoga.repositories.CategorieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

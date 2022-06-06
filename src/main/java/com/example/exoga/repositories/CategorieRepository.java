@@ -1,6 +1,6 @@
-package com.example.exOGA.repositories;
+package com.example.exoga.repositories;
 
-import com.example.exOGA.entities.Categorie;
+import com.example.exoga.entities.Categorie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

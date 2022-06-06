@@ -1,10 +1,10 @@
-package com.example.exOGA.controllers;
+package com.example.exoga.controllers;
 
-import com.example.exOGA.entities.Categorie;
-import com.example.exOGA.entities.Produit;
-import com.example.exOGA.request_pojos.PorduitRequestPojo;
-import com.example.exOGA.services.CategorieService;
-import com.example.exOGA.services.ProduitService;
+import com.example.exoga.entities.Categorie;
+import com.example.exoga.entities.Produit;
+import com.example.exoga.request_pojos.PorduitRequestPojo;
+import com.example.exoga.services.CategorieService;
+import com.example.exoga.services.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;

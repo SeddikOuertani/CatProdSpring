@@ -1,6 +1,6 @@
-package com.example.exOGA.entities;
+package com.example.exoga.entities;
 
-import com.example.exOGA.request_pojos.PorduitRequestPojo;
+import com.example.exoga.request_pojos.PorduitRequestPojo;
 import com.fasterxml.jackson.annotation.*;
 import lombok.Getter;
 import lombok.Setter;

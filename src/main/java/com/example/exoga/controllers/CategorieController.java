@@ -1,8 +1,8 @@
-package com.example.exOGA.controllers;
+package com.example.exoga.controllers;
 
-import com.example.exOGA.entities.Categorie;
-import com.example.exOGA.request_pojos.CategorieRequestPojo;
-import com.example.exOGA.services.CategorieService;
+import com.example.exoga.entities.Categorie;
+import com.example.exoga.request_pojos.CategorieRequestPojo;
+import com.example.exoga.services.CategorieService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -30,6 +30,7 @@ public class CategorieController {
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{idCat}")
     public ResponseEntity<Categorie> findCategorieById (@PathVariable("idCat") Long idCat){
+
         Categorie cat = this.catService.findCateogorieById(idCat);
         return new ResponseEntity<>(cat, HttpStatus.OK);
     }
@@ -49,6 +50,7 @@ public class CategorieController {
 
     @PutMapping("/modifier/{idCat}")
     public ResponseEntity<Categorie> deleteAllCategories (@PathVariable("idCat") Long idCat, @Valid @RequestBody CategorieRequestPojo catPojo){
+        System.out.println(catPojo.toString());
         Categorie newCategorie = new Categorie(catPojo);
         newCategorie.setIdCategorie(idCat);
         Categorie updatedCategorie = this.catService.modifierCategorie(newCategorie);
