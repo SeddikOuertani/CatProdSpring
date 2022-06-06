@@ -5,13 +5,22 @@ import com.example.exoga.entities.Produit;
 import com.example.exoga.request_pojos.PorduitRequestPojo;
 import com.example.exoga.services.CategorieService;
 import com.example.exoga.services.ProduitService;
+import com.example.exoga.utils.CategoriePDFExporter;
+import com.example.exoga.utils.ProduitExcelExporter;
+import com.example.exoga.utils.ProduitPDFExporter;
+import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -35,12 +44,6 @@ public class ProduitController {
 
         Produit savedProduit = this.prodService.ajoutProduit(prod);
         return new ResponseEntity<>(savedProduit, HttpStatus.OK);
-    }
-
-    @GetMapping("/{idProd}")
-    public ResponseEntity<Produit> findProduitById (@PathVariable("idProd") Long idProd){
-        Produit prod = this.prodService.findProduitById(idProd);
-        return new ResponseEntity<>(prod, HttpStatus.OK);
     }
 
     @GetMapping("/bycategorie/{idCat}")
@@ -73,6 +76,46 @@ public class ProduitController {
 
         Produit savedProduit = this.prodService.modifierProduit(produit);
         return  new ResponseEntity<>(savedProduit, HttpStatus.OK);
+    }
+
+    @GetMapping("/export/excel")
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        List<Produit> listProduits = prodService.findAllProduits();
+
+        ProduitExcelExporter excelExporter = new ProduitExcelExporter(listProduits);
+
+        excelExporter.export(response);
+    }
+
+    @GetMapping("/export/pdf")
+    public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        List<Produit> produitList = prodService.findAllProduits();
+
+        ProduitPDFExporter exporter = new ProduitPDFExporter(produitList);
+        exporter.export(response);
+
+    }
+
+    @GetMapping("/{idProd}")
+    public ResponseEntity<Produit> findProduitById (@PathVariable("idProd") Long idProd){
+        Produit prod = this.prodService.findProduitById(idProd);
+        return new ResponseEntity<>(prod, HttpStatus.OK);
     }
 
 }
