@@ -5,7 +5,6 @@ import com.example.exoga.entities.Produit;
 import com.example.exoga.request_pojos.PorduitRequestPojo;
 import com.example.exoga.services.CategorieService;
 import com.example.exoga.services.ProduitService;
-import com.example.exoga.utils.CategoriePDFExporter;
 import com.example.exoga.utils.ProduitExcelExporter;
 import com.example.exoga.utils.ProduitPDFExporter;
 import com.lowagie.text.DocumentException;
